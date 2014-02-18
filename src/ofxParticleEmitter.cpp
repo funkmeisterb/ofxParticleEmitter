@@ -102,7 +102,9 @@ bool ofxParticleEmitter::loadFromXml( const std::string& filename )
 		parseParticleConfig();
 		setupArrays();
 		
-		ok = active = true;
+		//ok = active = true;
+		ok = true;
+		active = false;
 	}
 
 	delete settings;
@@ -316,13 +318,24 @@ void ofxParticleEmitter::stopParticleEmitter()
 	emitCounter = 0;
 }
 
+void ofxParticleEmitter::startEmitting()
+{
+	active = true;
+	elapsedTime = 0;
+}
+
+void ofxParticleEmitter::stopEmitting()
+{
+	active = false;
+}
+
 // ------------------------------------------------------------------------
 // Update
 // ------------------------------------------------------------------------
 
 void ofxParticleEmitter::update()
 {
-	if ( !active ) return;
+	//if ( !active ) return;
 
 	// Calculate the emission rate
 	emissionRate = maxParticles / particleLifespan;
@@ -424,13 +437,13 @@ void ofxParticleEmitter::update()
 			
 			// Update the particle counter
 			particleIndex++;
-		} else {
-			
+		} else {			
 			// As the particle is not alive anymore replace it with the last active particle 
 			// in the array and reduce the count of particles by one.  This causes all active particles
 			// to be packed together at the start of the array so that a particle which has run out of
 			// life will only drop into this clause once
-			if(particleIndex != particleCount - 1)
+			
+			if (particleIndex != particleCount - 1)
 				particles[particleIndex] = particles[particleCount - 1];
 			particleCount--;
 		}
@@ -445,7 +458,7 @@ void ofxParticleEmitter::update()
 
 void ofxParticleEmitter::draw(int x /* = 0 */, int y /* = 0 */)
 {
-	if ( !active ) return;
+	//if ( !active ) return;
 	
 	glPushMatrix();
 	glTranslatef( x, y, 0.0f );

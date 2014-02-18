@@ -168,10 +168,12 @@ public:
 	ofxParticleEmitter();
 	~ofxParticleEmitter();
 	
-	bool	loadFromXml( const std::string& filename );
-	void	update();
-	void	draw( int x = 0, int y = 0 );
-	void	exit();
+	bool			loadFromXml( const std::string& filename );
+	void			update();
+	void			draw( int x = 0, int y = 0 );
+	void			exit();
+	void			startEmitting();
+	void			stopEmitting();
 
 	int				emitterType;
 	Vector2f		sourcePosition, sourcePositionVariance;			
@@ -201,16 +203,16 @@ public:
 	
 protected:
 	
-	void	parseParticleConfig();
-	void	setupArrays();
+	void			parseParticleConfig();
+	void			setupArrays();
 	
-	void	stopParticleEmitter();
-	bool	addParticle();
-	void	initParticle( Particle* particle );
+	void			stopParticleEmitter();
+	bool			addParticle();
+	void			initParticle( Particle* particle );
 	
-	void	drawTextures();
-	void	drawPoints();
-	void	drawPointsOES();
+	void			drawTextures();
+	void			drawPoints();
+	void			drawPointsOES();
 	
 	ofxXmlSettings*	settings;
 
